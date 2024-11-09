@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="TELEMEAL"></title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container my-5">
+            <h1 class="text-center mb-4">TELEMEAL</h1>
+
+            <!-- Barra de búsqueda -->
+            <div class="input-group mb-4">
+                <input type="text" class="form-control" placeholder="Search for a meal" id="searchInput">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" onclick="filterMeals()">Search</button>
+                </div>
+            </div>
+
+            <!-- Contenedor de comidas -->
+            <div class="row" id="mealList">
+                <!-- Iterar sobre la lista de comidas -->
+                <th:block th:each="comida : ${listaComidas}">
+                    <!-- col-md-4 para que cada fila solo tenga 3 productos -->
+                    <div class="col-md-4 meal-card " th:data-name="${comida.strCategory}">
+                        <div class="card h-100">
+                            <h4></h4>
+                            <h4 class="text-center" th:text="${comida.strCategory}"></h4>
+                            <h4></h4>
+                            <img th:src="${comida.strCategoryThumb}" class="card-img-top" th:alt="${comida.strCategory}">
+                            <div class="card-body">
+                                <p class="card-text text-center" th:text="${comida.strCategoryDescription}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+
+            <!-- Mensaje de "sin resultados" -->
+            <div id="noResultsMessage" class="text-center" style="display: none;">
+                <p>No hay resultados :c</p>
+            </div>
+        </div>
+        <!-- Javascript para el buscador -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+            function filterMeals() {
+                let input = document.getElementById('searchInput').value.toLowerCase();
+                let meals = document.querySelectorAll('.meal-card');
+                let noResultsMessage = document.getElementById('noResultsMessage');
+                let resultsFound = false;
+
+                // Ocultar mensaje de no resultados
+                noResultsMessage.style.display = 'none';
+
+                meals.forEach(meal => {
+                    let name = meal.getAttribute('data-name').toLowerCase();
+                    if (name.includes(input)) {
+                        meal.style.display = 'block';
+                        resultsFound = true;
+                    } else {
+                        meal.style.display = 'none';
+                    }
+                });
+
+                // Mostrar mensaje si no hay resultados
+                if (!resultsFound && input !== '') {
+                    noResultsMessage.style.display = 'block';
+                }
+            }
+
+            // Mostrar todas las comidas cuando el campo de búsqueda está vacío
+            document.getElementById('searchInput').addEventListener('input', function () {
+                if (this.value === '') {
+                    let meals = document.querySelectorAll('.meal-card');
+                    meals.forEach(meal => meal.style.display = 'block');
+                    document.getElementById('noResultsMessage').style.display = 'none';
+                }
+            });
+        </script>
+    </body>
+</html>
