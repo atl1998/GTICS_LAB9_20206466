@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="TELEMEAL"></title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container mt-4">
+            <h1 class="text-center mb-4">TELEMEAL</h1>
+
+            <div class="row">
+                <div class="col-md-10 mx-auto p-3 border">
+                    <img th:src="${meal.strMealThumb}" class="img-fluid mx-auto d-block mb-3">
+
+                    <h1 class="text" th:text="${meal.strMeal}"></h1>
+
+                    <p class="text" th:utext="'<strong>Category:</strong> ' + ${meal.strCategory}"></p>
+                    <p class="text" th:utext="'<strong>Area:</strong> ' + ${meal.strArea}"></p>
+                    <p class="text" th:utext="'<strong>Tags:</strong> ' + ${meal.strTags}"></p>
+
+                    <div class="mb-3">
+                        <h3>Instructions:</h3>
+                        <p class="text" th:text="${meal.strInstructions}"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <h3>Ingredients:</h3>
+                        <ul class="lista_ingredientes">
+                            <li th:text="${meal.strIngredient1}"></li>
+                            <li th:text="${meal.strIngredient2}"></li>
+                            <li th:text="${meal.strIngredient3}"></li>
+                            <li th:text="${meal.strIngredient4}"></li>
+                            <li th:text="${meal.strIngredient5}"></li>
+                            <li th:text="${meal.strIngredient6}"></li>
+                            <li th:text="${meal.strIngredient7}"></li>
+                            <li th:text="${meal.strIngredient8}"></li>
+                            <li th:text="${meal.strIngredient9}"></li>
+                            <li th:text="${meal.strIngredient10}"></li>
+                            <li th:text="${meal.strIngredient11}"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
