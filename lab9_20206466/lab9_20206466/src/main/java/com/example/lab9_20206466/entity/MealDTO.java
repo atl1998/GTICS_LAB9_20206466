@@ -2,7 +2,6 @@ package com.example.lab9_20206466.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 
 @Getter

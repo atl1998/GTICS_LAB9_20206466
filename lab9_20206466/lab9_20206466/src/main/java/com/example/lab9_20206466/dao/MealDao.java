@@ -26,17 +26,13 @@ public class MealDao {
         Meal meal = null;
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + strMeal;
-
-        // Hacemos la petición HTTP
         ResponseEntity<MealDTO> forEntity = restTemplate.getForEntity(url, MealDTO.class);
 
         if (forEntity.getStatusCode().is2xxSuccessful()) {
-            MealDTO mealDto = forEntity.getBody();
+            MealDTO mealDTO = forEntity.getBody();
 
-            // Verificar que la respuesta contiene comidas
-            if (mealDto != null && mealDto.getMeals() != null && !mealDto.getMeals().isEmpty()) {
-                meal = mealDto.getMeals().get(0);  // Tomamos la primera comida de la lista
-                System.out.println(meal.getStrMeal() + " - Comida encontrada");
+            if (mealDTO != null && mealDTO.getMeals() != null && !mealDTO.getMeals().isEmpty()) {
+                meal = mealDTO.getMeals().get(0);
             }
         }
         return meal;

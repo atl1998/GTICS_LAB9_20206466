@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title th:text="TELEMEAL"></title>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     </head>
     <body>
         <div class="container mt-4">
@@ -12,37 +13,118 @@
 
             <div class="row">
                 <div class="col-md-10 mx-auto p-3 border">
-                    <img th:src="${meal.strMealThumb}" class="img-fluid mx-auto d-block mb-3">
+                    <img th:src="${meal.strMealThumb}" class="img-fluid mx-auto d-block mb-3" style="max-width: 30%;">
 
-                    <h1 class="text" th:text="${meal.strMeal}"></h1>
+                    <h1 class="text-center" th:text="${meal.strMeal}"></h1>
+                    <div th:if="${message}">
+                        <div class="alert alert-success" role="alert">
+                            <span th:text="${message}"></span>
+                        </div>
+                    </div>
 
-                    <p class="text" th:utext="'<strong>Category:</strong> ' + ${meal.strCategory}"></p>
-                    <p class="text" th:utext="'<strong>Area:</strong> ' + ${meal.strArea}"></p>
-                    <p class="text" th:utext="'<strong>Tags:</strong> ' + ${meal.strTags}"></p>
+                    <!-- Botón de favorito -->
+                    <div class="text-center mb-3">
+                        <a th:href="@{'/meals/addToFavorites?name=' + ${meal.strMeal}}" id="favoriteButton" class="btn btn-outline-primary">
+                            <i class="fa-regular fa-star"></i> Add to favorite
+                        </a>
+                    </div>
+
+                    <p class="text-center" th:utext="'<strong>Category:</strong> ' + ${meal.strCategory}"></p>
+                    <p class="text-center" th:utext="'<strong>Area:</strong> ' + ${meal.strArea}"></p>
+                    <p class="text-center" th:utext="'<strong>Tags:</strong> ' + ${meal.strTags}"></p>
 
                     <div class="mb-3">
-                        <h3>Instructions:</h3>
-                        <p class="text" th:text="${meal.strInstructions}"></p>
+                        <p class="text-center" th:utext="'<strong>Instructions:</strong> ' + ${meal.strInstructions}"></p>
                     </div>
 
                     <div class="mb-3">
                         <h3>Ingredients:</h3>
                         <ul class="lista_ingredientes">
-                            <li th:text="${meal.strIngredient1}"></li>
-                            <li th:text="${meal.strIngredient2}"></li>
-                            <li th:text="${meal.strIngredient3}"></li>
-                            <li th:text="${meal.strIngredient4}"></li>
-                            <li th:text="${meal.strIngredient5}"></li>
-                            <li th:text="${meal.strIngredient6}"></li>
-                            <li th:text="${meal.strIngredient7}"></li>
-                            <li th:text="${meal.strIngredient8}"></li>
-                            <li th:text="${meal.strIngredient9}"></li>
-                            <li th:text="${meal.strIngredient10}"></li>
-                            <li th:text="${meal.strIngredient11}"></li>
+                            <li>
+                                <span th:text="${meal.strMeasure1}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient1}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure2}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient2}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure3}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient3}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure4}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient4}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure5}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient5}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure6}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient6}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure7}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient7}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure8}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient8}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure9}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient9}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure10}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient10}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure11}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient11}" class="d-inline"></span>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Modal de confirmación -->
+        <div class="modal fade" id="favoriteModal" tabindex="-1" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" style="margin-top: 10vh;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="favoriteModalLabel">Congratulations!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        You added this meal to favorites.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="confirmFavorite()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts de Bootstrap y Font Awesome -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Script de JavaScript -->
+        <script>
+            function showFavoriteModal() {
+                new bootstrap.Modal(document.getElementById('favoriteModal')).show();
+            }
+
+            function confirmFavorite() {
+                const button = document.getElementById('favoriteButton');
+                button.innerHTML = '<i class="fa-solid fa-star"></i> Favorite';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-success'); // Cambia el fondo a verde
+                const modal = bootstrap.Modal.getInstance(document.getElementById('favoriteModal'));
+                modal.hide();
+            }
+        </script>
     </body>
 </html>
