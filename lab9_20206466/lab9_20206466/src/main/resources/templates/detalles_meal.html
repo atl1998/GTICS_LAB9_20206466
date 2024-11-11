@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="TELEMEAL"></title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container mt-4">
+            <h1 class="text-center mb-4">TELEMEAL</h1>
+
+            <div class="row">
+                <div class="col-md-10 mx-auto p-3 border">
+                    <img th:src="${meal.strMealThumb}" class="img-fluid mx-auto d-block mb-3" style="max-width: 30%;">
+
+                    <h1 class="text-center" th:text="${meal.strMeal}"></h1>
+                    <!-- Botón de favorito -->
+                    <div class="text-center mb-3">
+                        <form th:action="@{'/meals/addToFavorites'}" method="post">
+                            <input type="hidden" name="name" th:value="${meal.strMeal}"/>
+                            <button type="submit"
+                                    id="favoriteButton"
+                                    class="btn"
+                                    th:classappend="${isFavorite} ? 'btn-success' : 'btn-outline-primary'"
+                                    th:disabled="${isFavorite}">
+                                <i class="fa" th:classappend="${isFavorite} ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                <span th:text="${isFavorite} ? 'Favorite' : 'Add to favorite'"></span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="text-center mb-3">
+                        <a th:href="@{/meals/lista}" class="btn btn-primary">Volver</a>
+                    </div>
+
+                    <p class="text-center" th:utext="'<strong>Category:</strong> ' + ${meal.strCategory}"></p>
+                    <p class="text-center" th:utext="'<strong>Area:</strong> ' + ${meal.strArea}"></p>
+                    <p class="text-center" th:utext="'<strong>Tags:</strong> ' + ${meal.strTags}"></p>
+
+                    <div class="mb-3">
+                        <p class="text-center" th:utext="'<strong>Instructions:</strong> ' + ${meal.strInstructions}"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h3>Ingredients:</h3>
+                        <ul class="lista_ingredientes">
+                            <li>
+                                <span th:text="${meal.strMeasure1}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient1}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure2}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient2}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure3}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient3}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure4}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient4}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure5}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient5}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure6}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient6}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure7}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient7}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure8}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient8}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure9}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient9}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure10}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient10}" class="d-inline"></span>
+                            </li>
+                            <li>
+                                <span th:text="${meal.strMeasure11}" class="d-inline"></span>
+                                <span th:text="${meal.strIngredient11}" class="d-inline"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de confirmación -->
+        <div class="modal fade" id="favoriteModal" tabindex="-1" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" style="margin-top: 10vh;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="favoriteModalLabel">Congratulations!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        You added this meal to favorites.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="confirmFavorite()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts de Bootstrap y Font Awesome -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Script de JavaScript -->
+        <script>
+            function showFavoriteModal() {
+                new bootstrap.Modal(document.getElementById('favoriteModal')).show();
+            }
+
+            function confirmFavorite() {
+                const button = document.getElementById('favoriteButton');
+                button.innerHTML = '<i class="fa-solid fa-star"></i> Favorite';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-success'); // Cambia el fondo a verde
+                const modal = bootstrap.Modal.getInstance(document.getElementById('favoriteModal'));
+                modal.hide();
+            }
+        </script>
+
+        <!-- Mostrar modal si showModal es true -->
+        <script th:if="${showModal}">
+            document.addEventListener('DOMContentLoaded', function () {
+                showFavoriteModal();
+            });
+        </script>
+    </body>
+</html>
