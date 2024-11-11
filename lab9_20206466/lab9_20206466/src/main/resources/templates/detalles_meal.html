@@ -16,17 +16,22 @@
                     <img th:src="${meal.strMealThumb}" class="img-fluid mx-auto d-block mb-3" style="max-width: 30%;">
 
                     <h1 class="text-center" th:text="${meal.strMeal}"></h1>
-                    <div th:if="${message}">
-                        <div class="alert alert-success" role="alert">
-                            <span th:text="${message}"></span>
-                        </div>
-                    </div>
-
                     <!-- Botón de favorito -->
                     <div class="text-center mb-3">
-                        <a th:href="@{'/meals/addToFavorites?name=' + ${meal.strMeal}}" id="favoriteButton" class="btn btn-outline-primary">
-                            <i class="fa-regular fa-star"></i> Add to favorite
-                        </a>
+                        <form th:action="@{'/meals/addToFavorites'}" method="post">
+                            <input type="hidden" name="name" th:value="${meal.strMeal}"/>
+                            <button type="submit"
+                                    id="favoriteButton"
+                                    class="btn"
+                                    th:classappend="${isFavorite} ? 'btn-success' : 'btn-outline-primary'"
+                                    th:disabled="${isFavorite}">
+                                <i class="fa" th:classappend="${isFavorite} ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                <span th:text="${isFavorite} ? 'Favorite' : 'Add to favorite'"></span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="text-center mb-3">
+                        <a th:href="@{/meals/lista}" class="btn btn-primary">Volver</a>
                     </div>
 
                     <p class="text-center" th:utext="'<strong>Category:</strong> ' + ${meal.strCategory}"></p>
@@ -36,7 +41,6 @@
                     <div class="mb-3">
                         <p class="text-center" th:utext="'<strong>Instructions:</strong> ' + ${meal.strInstructions}"></p>
                     </div>
-
                     <div class="mb-3">
                         <h3>Ingredients:</h3>
                         <ul class="lista_ingredientes">
@@ -89,7 +93,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Modal de confirmación -->
         <div class="modal fade" id="favoriteModal" tabindex="-1" aria-labelledby="favoriteModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" style="margin-top: 10vh;">
@@ -125,6 +128,13 @@
                 const modal = bootstrap.Modal.getInstance(document.getElementById('favoriteModal'));
                 modal.hide();
             }
+        </script>
+
+        <!-- Mostrar modal si showModal es true -->
+        <script th:if="${showModal}">
+            document.addEventListener('DOMContentLoaded', function () {
+                showFavoriteModal();
+            });
         </script>
     </body>
 </html>

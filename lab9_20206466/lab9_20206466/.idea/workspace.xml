@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc2d38bf-4cb1-4061-9a97-1775ced980a9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/entity/Favorite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/repository/FavoriteRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/controller/MealController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/controller/MealController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/dao/MealDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/dao/MealDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/entity/MealDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/entity/MealDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/repository/FavoriteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/lab9_20206466/repository/FavoriteRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/detalles_meal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/detalles_meal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +93,7 @@
       <workItem from="1731181826671" duration="6864000" />
       <workItem from="1731192569017" duration="217000" />
       <workItem from="1731192817064" duration="7112000" />
+      <workItem from="1731357874432" duration="5362000" />
     </task>
     <servers />
   </component>
