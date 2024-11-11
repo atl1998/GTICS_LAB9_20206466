@@ -10,9 +10,9 @@
         <div class="container my-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="flex-grow-1 text-center">
-                    <h1 class="mb-0">TELEMEAL</h1>
+                    <h1 class="mb-0">My favorite Meals</h1>
                 </div>
-                <a th:href="@{/meals/listaFavoritos}" class="btn btn-success">List my favorites</a>
+                <a th:href="@{/meals/lista}" class="btn btn-primary">Back to list</a>
             </div>
             <!-- Barra de búsqueda -->
             <div class="input-group mb-4">
@@ -25,7 +25,7 @@
             <!-- Contenedor de comidas -->
             <div class="row" id="mealList">
                 <!-- Iterar sobre la lista de comidas -->
-                <th:block th:each="meal : ${meals}">
+                <th:block th:each="meal : ${favorites}">
                     <!-- col-md-4 para que cada fila solo tenga 3 productos -->
                     <div class="col-md-4 meal-card " th:data-name="${meal.strMeal}">
                         <div class="card h-100">

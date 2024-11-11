@@ -29,6 +29,12 @@ public class MealController {
         model.addAttribute("meals", meals);
         return "list_meal";
     }
+    @GetMapping("/listaFavoritos")
+    public String listarMealsFavoritos(Model model) {
+        List<Favorite> favorites = favoriteRepository.findAll();
+        model.addAttribute("favorites", favorites);
+        return "list_favorites";
+    }
     @GetMapping("/detalles")
     public String DetallesMeal(@RequestParam("name") String strMeal, Model model) {
         Optional<Favorite> favorite = favoriteRepository.findByStrMeal(strMeal);
